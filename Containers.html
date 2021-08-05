@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Rehan Baig | Trakomatic Test</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Bootstrap End -->
+    <style type="text/css">
+
+        .over {
+          border: solid 4px #ACFA58;
+        }
+        .box{
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 1px 1px 12px black;
+            max-width: 100%;
+            margin: 10px;
+        }
+        .draggable {
+            height: 120px;
+            color: white !important;
+            padding: 20px;
+            background: #333;
+            border: solid 1px blue;
+            margin: 1px;
+        }
+        #timetable{
+          margin-top:50px;
+        }
+        #moveable_container{
+          width:100%;
+          height:75px;
+          border: 2px solid black;
+        }
+        .AddComponent{
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+
+<body>
+<div id="page-wrapper">
+    <div id="timetable" class="container" >
+            <div class="AddComponent btn" onclick="AddComponent()">
+                <img src="add.png" width="40" height="40"> Add New Box
+            </div>
+            <hr/>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="box " id="Container 1">
+                    <center>
+                        <h3><strong>This is Container 1</strong><h3>
+                    </center>
+                    <hr>
+                    <div class="moveable_container">
+                        <div class="draggable">
+                            I am Box 1 , I am in <span>Container 1</span>
+                        </div>
+                    </div>
+                    <div class="moveable_container">
+                        <div class="draggable">
+                            I am Box 2 , I am in <span>Container 1</span>
+                        </div>
+                    </div>
+                    <div class="moveable_container">
+                        <div class="draggable">                            
+                            I am Box 3 , I am in <span>Container 1</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="box" id="Container 2">
+                    <center>
+                        <h3><strong>This is Container 2</strong><h3>
+                    </center>
+                    <hr>
+                    <div class="moveable_container">
+                        <div class="draggable">
+                            I am Box 4 , I am in <span>Container 2</span>
+                        </div>
+                    </div>
+                    <div class="moveable_container">
+                        <div class="draggable">
+                            I am Box 5 , I am in <span>Container 2</span>
+                        </div>
+                    </div>
+                    <div class="moveable_container">
+                        <div class="draggable">                            
+                            I am Box 6 , I am in <span>Container 2</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-sm-4">
+                     <div class="box Container3" id="Container 3">
+                    <center>
+                        <h3><strong>This is Container 3</strong><h3>
+                    </center>
+                    <hr>
+                    <div class="moveable_container">
+                        <div class="draggable">
+                            I am Box 7 , I am in <span>Container 3</span>
+                        </div>
+                    </div>
+                    <div class="moveable_container">
+                        <div class="draggable">
+                            I am Box 8 , I am in <span>Container 3</span>
+                        </div>
+                    </div>
+                    <div class="moveable_container">
+                        <div class="draggable">                            
+                            I am Box 9 , I am in <span>Container 3</span>
+                        </div>
+                    </div>
+                </div>
+                </div>
+               
+            </div>
+        </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<script type="text/javascript">
+
+    var counter = 9;
+    var ContainerName = "";
+$(document).ready(function() {
+    $(".draggable").draggable({ 
+        cursor: "crosshair", 
+        revert: "invalid"
+    });
+
+    $(".moveable_container").droppable({ 
+        accept: ".draggable", 
+        activeClass: "over",
+        drop: function(event, ui) {
+            $(this).removeClass("border").removeClass("over");
+            var dropped = ui.draggable;
+            var droppedOn = $(this);
+            $(dropped).detach().css({top: 0,left: 0}).appendTo(droppedOn);
+            droppedOn.find("span").html(event.target.parentNode.id);   
+        }
+    });
+
+    $(".drop").sortable();
+});
+function AddComponent(){
+    counter++;
+    var newbox = '<div class="moveable_container ui-droppable"><div class="draggable ui-draggable ui-draggable-handle" style="position: relative;">I am Box '+counter+' , I am in <span>Container 3</span></div></div>';
+    $('.Container3').append(newbox);
+    $('.draggable').draggable();
+}
+</script>
+</body>
+</html>
